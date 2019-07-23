@@ -1,4 +1,4 @@
-###This folder contains scripts for analyzing EEG data collected from a learning study investigating learning Mandarin categories from continuous speech through videogame play. Once the paper is published, a link to the paper will be provided here for a reference. 
+###This folder contains scripts for analyzing EEG data collected from a learning study investigating learning Mandarin categories from continuous speech through videogame play. Once the paper is published, a link to the paper will be provided here for a reference. All data and results are stored in a separate folder
 
 ###the raw EEG data were collected using NeuroScan system and the experiment stimuli were presented in Eprime. 
 
