@@ -1,6 +1,3 @@
-
-import warnings
-warnings.simplefilter("ignore", DeprecationWarning)
 import mne
 import numpy as np
 import scipy, time
@@ -61,20 +58,20 @@ session_list = ['PRE','POST']
 n_subj = len(subj_list) 
 n_sesh = len(session_list)
 words = ['TAR','CON']
-warnings.simplefilter("ignore", DeprecationWarning)
+ch_names = ['FZ', 'CZ', 'PZ']
+
 ##read the events from the event files instead of the stim channels in the data.
 for word in words:
     for j in range(n_sesh):
         sesh = session_list[j]
         evoked_data = np.empty(shape = (0,0,0))
         for i in range(n_subj):
-            ch_names = ['FZ', 'CZ', 'PZ']
             subj = subj_list[i]
             fname = word_epoch_dir + "%s_%s_%s_word-epo.fif" %(subj, sesh, fname_suffix)
             this_epoch = mne.read_epochs(fname, preload = True)
             this_epoch.pick_channels(ch_names)
             print "this_epoch shape", np.shape(this_epoch.get_data())
-            epoch_data = this_epoch[word].crop(-0.2, 0.6)
+            epoch_data = this_epoch[word]
             print "epoch_data shape", np.shape(epoch_data)
             epoch_size, time = np.shape(epoch_data.get_data())[0], np.shape(epoch_data.get_data())[2]        
             evoked_subj = epoch_data.average()

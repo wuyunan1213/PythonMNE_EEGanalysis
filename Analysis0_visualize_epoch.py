@@ -1,8 +1,6 @@
 ###here we want to group the conditions by target and control words so we can compare their ERPs.
 ##in this script, we group all of the target and control words whereas in the other script, we look
 ##at every target and control word individually.
-import warnings
-warnings.simplefilter("ignore", DeprecationWarning)
 import mne
 import numpy as np
 import scipy, time
@@ -60,8 +58,6 @@ session_list = ['PRE','POST']
 n_subj = len(subj_list) 
 n_sesh = len(session_list)
 words = ['TAR','CON']
-warnings.simplefilter("ignore", DeprecationWarning)
-##read the events from the event files instead of the stim channels in the data.
 evoked_dict = dict()
 
 for word in words:

@@ -1,5 +1,3 @@
-import warnings
-warnings.simplefilter("ignore", DeprecationWarning)
 import mne
 import numpy as np
 import scipy, time
@@ -104,7 +102,6 @@ for i in range(n_subj):
     for j in range(n_sesh):
         subj = subj_list[i]
         sesh = session_list[j]
-        warnings.simplefilter("ignore", DeprecationWarning)
         ica_raw_name = ica_dir  + "%s_%s_%s_after_ica_raw.fif" %(subj, sesh, fname_suffix)
         raw = mne.io.Raw(ica_raw_name,preload = True)
 
@@ -112,8 +109,8 @@ for i in range(n_subj):
         fname = event_dir + "%s_%s_WORD.eve"%(subj,sesh)
         events = mne.read_events(fname)
 
-        tmin, tmax = -0.6, 0.6
-        baseline = (-0.2, 0.0)
+        tmin, tmax = -0.1, 0.3
+        baseline = (-0.1, 0.0)
         ##the baseline period is set to equal to the length of the epoch. The epoch is set to be longer
         ##than usual because of the potential time-frequency analysis that comes later. 
         #However, the isi in the experiment is, which means that there is??

@@ -42,9 +42,9 @@ evoked_dict = dict()
 
 for word in words:
     for sesh in session_list:
-        fname = evoked_dir + "evoked%s_%s_%s-ave.fif" %(word, sesh, fname_suffix)
+        fname = evoked_dir + "%s_%s_%s-ave.fif" %(word, sesh, fname_suffix)
         evoked = mne.read_evokeds(fname)
-        evoked_dict["%s/%s" %(word, sesh)] = evoked[0].crop(-0.1,0.3)
+        evoked_dict["%s/%s" %(word, sesh)] = evoked[0].drop_channels(['M2', 'O1', 'O2'])
 
 from mne.channels.layout import find_layout
 layout = find_layout(evoked[0].info)

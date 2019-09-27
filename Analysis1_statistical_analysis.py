@@ -1,5 +1,3 @@
-import warnings
-warnings.filterwarnings('ignore')
 import mne
 import numpy as np
 import scipy, time
@@ -65,8 +63,6 @@ for word in words:
         sesh = session_list[j]
         for i in range(n_subj):
             subj = subj_list[i]
-            import warnings
-            warnings.filterwarnings('ignore')
             fname = word_epoch_dir + "%s_%s_%s_word-epo.fif" %(subj, sesh, fname_suffix)
             epochs = mne.read_epochs(fname, preload = True)
 
@@ -74,7 +70,7 @@ for word in words:
             CZ = epochs['S6/ZHUO4/TAR'].ch_names.index('CZ')
             PZ = epochs['S6/ZHUO4/TAR'].ch_names.index('PZ')
             
-            find_peak = epochs[word].crop(0.05,0.25)
+            find_peak = epochs[word].crop(0.06,0.16)
             peak_data = find_peak.get_data()
             peak_amplitude_FZ = np.min(peak_data[:,FZ,:],axis = 1)
             peak_amplitude_CZ = np.min(peak_data[:,CZ,:],axis = 1)
@@ -84,16 +80,16 @@ for word in words:
             dataframe_peak['FZ'] = peak_amplitude_FZ
             dataframe_peak['CZ'] = peak_amplitude_CZ
             dataframe_peak['PZ'] = peak_amplitude_PZ 
-            dataframe_peak.to_csv(path_or_buf = analysis_dir+'Peak_amplitude_50_250.csv', mode = 'a',header = False, 
+            dataframe_peak.to_csv(path_or_buf = analysis_dir+'Peak_amplitude_60_160.csv', mode = 'a',header = False, 
                              index = False)
 
-            evoked = epochs[word].average().crop(-0.2,0.5)         
+            evoked = epochs[word].average()        
             FZ_ave = evoked.data[FZ]
             CZ_ave = evoked.data[CZ]
             PZ_ave = evoked.data[PZ]            
         
             dataframe = pd.DataFrame(np.repeat([[subj],[sesh],[word]],np.shape(FZ_ave)[0], axis=1).T)
-            dataframe['TimePoint'] = range(-200,501)
+            dataframe['TimePoint'] = range(-100,301)
             dataframe['FZ'] = FZ_ave
             dataframe['CZ'] = CZ_ave
             dataframe['PZ'] = PZ_ave
